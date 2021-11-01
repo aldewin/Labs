@@ -1,58 +1,93 @@
 package com.company;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Lab {
+    static  Scanner sc = new Scanner(System.in);
+    static Goods[] goods = new Goods[100];
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int size = n;
-        int[][] arr = new int[n][n];
-        int num = 1;
-        int count = 0;
-        for (int i = size - 1; i >= 0; i--) {
-            if (count++ % 2 == 0) {
-                for (int j = 0; j <= i; j++) {
-                    arr[i][j] = num++;
-                }
-                for (int j = i - 1; j >= 0; j--) {
-                    arr[j][i] = num++;
-                }
-            } else {
-                for (int j = 0; j <= i; j++) {
-                    arr[j][i] = num++;
-                }
-                for (int j = i - 1; j >=0 ; j--) {
-                    arr[i][j] = num++;
-                }
-            }
 
+
+
+        System.out.println("1. Add System");
+        System.out.println("2. Delete of the System");
+        System.out.println("3. Show All");
+        System.out.println("4. Save to File");
+        System.out.println("5. Load from File");
+
+        int choice;
+        while (true) {
+            choice = sc.nextInt();
+            if (choice == 1) {
+                addSystem();
+            } else if (choice == 2) {
+                deleteFromSystem();
+            } else if (choice == 3) {
+                showAll();
+            } else if (choice == 4) {
+                saveToFile();
+            } else if (choice == 5) {
+                loafFromFile();
+            } else break;
         }
+    }
 
+    // 1
+    private static void addSystem() {
+        Goods good = new Goods();
+        good.setGoodsID(Goods.id);
+        // name
+        System.out.println("Input Name");
+        String name = sc.next();
+        good.setName(name);
+        // count
+        System.out.println("Input Count");
+        String count = sc.next();
+        good.setCount(count);
+        // date
+        System.out.println("Input Date");
+        String date = sc.next();
+        good.setDate(date);
+        // price
+        System.out.println("Input Price");
+        String price = sc.next();
+        good.setPrice(price);
+        // sale
+        System.out.println("Input Sale: Yes or No");
+        String sale = sc.next();
+        good.setSale(sale);
+        // weight
+        System.out.println("Input weight");
+        String weight = sc.next();
+        good.setWeight(weight);
 
-        // output array
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                System.out.print(arr[i][j] + " ");
-            }
-            System.out.println();
+        goods[Goods.id++] = good;
+        System.out.println("Object add to the system");
+    }
+
+    // 2
+    private static void deleteFromSystem() {
+        int id = sc.nextInt();
+        if (id < Goods.id) goods[id] = null;
+    }
+
+    // 3
+    private static void showAll() {
+        for (int i = 0; i < Goods.id; i++) {
+            if (goods[i] != null) System.out.println(goods[i]);
         }
+    }
+
+    // 4
+    private static void saveToFile() {
 
     }
 
-    /*
-    16 15 8  7
-    13 14 9  6
-    12 11 10 5
-    1  2  3  4
+    // 5
+    private static void loafFromFile() {
 
-       11    10
-            9
-            8
-            7
-            6
-    1 2 3 4 5
-     */
+    }
 
 
 }
