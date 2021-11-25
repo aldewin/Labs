@@ -9,16 +9,16 @@ using namespace std;
 string* splitSpace(string str) {
     string *ans = new string[7];
     int idx = 0;
-    
+
     string word;
     for (char i : str) {
-            if (i != ' ') {
-                word += i;
-            } else {
-                ans[idx++] = word;
-                word = "";
-            }
+        if (i != ' ') {
+            word += i;
+        } else {
+            ans[idx++] = word;
+            word = "";
         }
+    }
     return ans;
 }
 
@@ -33,47 +33,19 @@ private:
     bool sale;
 
 public:
-    void setGoodsID(int id) {
-        goodsID = id;
+    void setGoodsID(int goodsID) {
+        this->goodsID = goodsID;
     }
 
-    int getGoodsId() {
-        return goodsID;
-    }
-
-    string getName()  {
-        return name;
-    }
-
-    int getWeight() const {
-        return weight;
-    }
-
-    int getPrice() const {
-        return price;
-    }
-
-    int getCount() const {
-        return count;
-    }
-
-    string getDate()  {
-        return date;
-    }
-
-    bool isSale() const {
-        return sale;
-    }
-
-    void setName(string parName) {
+    void setName(string name) {
         bool okName = true;
-        for (int i = 0; i < parName.length() && okName; i++) {
-            if (!(parName[i] >= 97 && parName[i] <= 122)) {
+        for (int i = 0; i < name.length() && okName; i++) {
+            if (!(name[i] >= 97 && name[i] <= 122)) {
                 okName = false;
             }
         }
         if (okName)
-            name = parName;
+            this->name = name;
         else {
             cout << "INVALID VALUE ENTERED" << endl;
         }
@@ -105,7 +77,7 @@ public:
         else {
             cout << "INVALID VALUE ENTERED" << endl;
         }
-        
+
     }
 
     void setCount(string parCount) {
@@ -124,10 +96,10 @@ public:
 
     void setDate(string parDate) {
         bool okDate = true;
-        
+
         string arrDate[3];
         int idx = 0;
-        
+
         string word;
         for (int i = 0; i < parDate.length() && okDate; i++) {
             if (parDate[i] != '.' && parDate[i] >= '0' && parDate[i] <= '9') {
@@ -139,9 +111,9 @@ public:
                 okDate = false;
             }
         }
-    
+
         if (idx != 2) okDate = false;
-        
+
         if (okDate) {
             int day = stoi(arrDate[0]);
             int month = stoi(arrDate[1]);
@@ -149,7 +121,7 @@ public:
                 okDate = false;
             }
         }
-        
+
         if (okDate) {
             date = parDate;
         } else {
@@ -169,6 +141,35 @@ public:
     }
 
 
+    int getGoodsId() {
+        return goodsID;
+    }
+
+    string getName()  {
+        return name;
+    }
+
+    int getWeight() const {
+        return weight;
+    }
+
+    int getPrice() const {
+        return price;
+    }
+
+    int getCount() const {
+        return count;
+    }
+
+    string getDate()  {
+        return date;
+    }
+
+    bool isSale() const {
+        return sale;
+    }
+
+
 };
 
 // Dynamic List
@@ -176,13 +177,13 @@ class ArrayList {
 public:
     ArrayList();
     ~ArrayList();
-    
+
     void add(Goods element);
     int size();
     Goods get(int index);
     void popFront();
     void remove(int index);
-    
+
 private:
     class Node {
     public:
@@ -214,14 +215,12 @@ ArrayList::~ArrayList() {
 void ArrayList::add(Goods element) {
     if (head == nullptr) {
         head = new Node(element);
-
     } else {
         Node *curr = this->head;
         while (curr->next != nullptr) {
             curr = curr->next;
         }
         curr->next = new Node(element);
-        
     }
     sizeList++;
 }
@@ -278,10 +277,11 @@ int main() {
     cout << "3. Show All" << endl;
     cout << "4. Save to File" << endl;
     cout << "5. Load from File" << endl;
+    cout << "Press 0 to end the program" << endl;
     // endl;
     cout << endl;
-    
-    
+
+
     string choice;
     while (true) {
         cout << "Enter number: ";
@@ -310,7 +310,7 @@ void addSystem() {
     good.setGoodsID(goods.size());
     // name
     string name;
-    while (good.getName() == "") {
+    while (good.getName().empty()) {
         cout << "Input Name: ";
         cin >> name;
         good.setName(name);
@@ -324,7 +324,7 @@ void addSystem() {
     }
     // date;
     string date;
-    while (good.getDate() == "") {
+    while (good.getDate().empty()) {
         cout << "Input Date: ";
         cin >> date;
         good.setDate(date);
@@ -358,7 +358,7 @@ void addSystem() {
 // 2
 void deleteFromSystem() {
     int delID = goods.size();
-    
+
     cout << "You can delete id under numbers: ";
     for (int i = 0; i < goods.size(); i++) {
         cout << goods.get(i).getGoodsId() << " ";
@@ -374,7 +374,7 @@ void deleteFromSystem() {
                 okID = true;
             }
         }
-        
+
     }
     // success
     cout << "Operation was successfully completed" << endl;
@@ -386,15 +386,15 @@ void showAll() {
     cout << "Show Array" << endl;
     if (goods.size() == 0) cout << "Oops, list is empty" << endl;
     for (int i = 0; i < goods.size(); ++i) {
-            cout << "Goods {" <<
-                 "goodsID=" << goods.get(i).getGoodsId() <<
-                 ", name='" << goods.get(i).getName() << '\'' <<
-                 ", weight=" << goods.get(i).getWeight() <<
-                 ", price=" << goods.get(i).getPrice() <<
-                 ", count=" << goods.get(i).getCount() <<
-                 ", date=" << goods.get(i).getDate() <<
-                 ", sale=" << goods.get(i).isSale() <<
-                 '}' << endl;
+        cout << "Goods {" <<
+             "goodsID=" << goods.get(i).getGoodsId() <<
+             ", name='" << goods.get(i).getName() << '\'' <<
+             ", weight=" << goods.get(i).getWeight() <<
+             ", price=" << goods.get(i).getPrice() <<
+             ", count=" << goods.get(i).getCount() <<
+             ", date=" << goods.get(i).getDate() <<
+             ", sale=" << goods.get(i).isSale() <<
+             '}' << endl;
     }
     // success
     cout << "Operation was successfully completed" << endl;
@@ -405,18 +405,17 @@ void saveToFile() {
     ofstream fout;
     fout.open("goods.txt");
     for (int i = 0; i < goods.size(); ++i) {
-            fout << "Goods {" <<
-            "goodsID=" << goods.get(i).getGoodsId() <<
-            ", name='" << goods.get(i).getName() << '\'' <<
-            ", weight=" << goods.get(i).getWeight() <<
-            ", price=" << goods.get(i).getPrice() <<
-            ", count=" << goods.get(i).getCount() <<
-            ", date=" << goods.get(i).getDate() <<
-            ", sale=" << goods.get(i).isSale() <<
-            '}' << endl;
+        fout <<
+             goods.get(i).getGoodsId() << " "
+             << goods.get(i).getName() << " "
+             << goods.get(i).getWeight() << " "
+             << goods.get(i).getPrice() << " "
+             << goods.get(i).getCount() << " "
+             << goods.get(i).getDate() << " "
+             << goods.get(i).isSale()  << endl;
     }
     fout.close();
-    
+
     // success
     cout << "Operation was successfully completed" << endl;
     cout << endl;
@@ -428,22 +427,33 @@ void loadFromFile() {
     while (!fin.eof()) {
         string str;
         getline(fin, str);
-        string* strArr = splitSpace(str);
-        
+
+        string word;
+        int count = 0;
         // new Goods
         Goods item;
-        item.setGoodsID(stoi(strArr[0]));
-        item.setName(strArr[1]);
-        item.setWeight(strArr[2]);
-        item.setPrice(strArr[3]);
-        item.setCount(strArr[4]);
-        item.setDate(strArr[5]);
-        item.setSale(strArr[6]);
-        // add to arrar
+        for (char i : str) {
+            if (i != ' ') {
+                word += i;
+            } else {
+                if (count == 0) item.setGoodsID(stoi(word));
+                else if (count == 1) item.setName(word);
+                else if (count == 2) item.setWeight(word);
+                else if (count == 3) item.setPrice(word);
+                else if (count == 4) item.setCount(word);
+                else if (count == 5) item.setDate(word);
+                else if (count == 6) item.setSale(word);
+
+                count++;
+                word = "";
+            }
+        }
+
+        // add to array
         goods.add(item);
     }
     fin.close();
-    
+
     // success
     cout << "Operation was successfully completed" << endl;
     cout << endl;
