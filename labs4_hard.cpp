@@ -5,23 +5,6 @@
 
 using namespace std;
 
-// самописный метод split
-string* splitSpace(string str) {
-    string *ans = new string[7];
-    int idx = 0;
-
-    string word;
-    for (char i : str) {
-        if (i != ' ') {
-            word += i;
-        } else {
-            ans[idx++] = word;
-            word = "";
-        }
-    }
-    return ans;
-}
-
 struct Goods {
 private:
     int goodsID;
