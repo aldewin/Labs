@@ -132,15 +132,15 @@ public:
         return name;
     }
 
-    int getWeight() const {
+    int getWeight()  {
         return weight;
     }
 
-    int getPrice() const {
+    int getPrice()  {
         return price;
     }
 
-    int getCount() const {
+    int getCount()  {
         return count;
     }
 
@@ -148,7 +148,7 @@ public:
         return date;
     }
 
-    bool isSale() const {
+    bool isSale()  {
         return sale;
     }
 
@@ -395,7 +395,9 @@ void saveToFile() {
              << goods.get(i).getPrice() << " "
              << goods.get(i).getCount() << " "
              << goods.get(i).getDate() << " "
-             << goods.get(i).isSale()  << endl;
+             << goods.get(i).isSale();
+
+        if (i != goods.size() - 1) fout << endl;
     }
     fout.close();
 
